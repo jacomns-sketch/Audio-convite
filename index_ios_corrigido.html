@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dalmo 50 ANOS - 50 Anos</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* CSS RESET & VARIAVEIS DA MARCA */
+        :root {
+            --bar-red-dark: #6e0004;
+            --bar-red-light: #ab070d;
+            --bar-gold-dark: #b89146;
+            --bar-gold-light: #e5c07b;
+            --cream-bg: #f5eedc; /* Tom bege claro idêntico ao fundo da imagem */
+            --card-bg: #fbf9f3;
+            --charcoal: #2c1a11; /* Marrom ultra escuro para os textos rústicos */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #121212;
+            color: var(--charcoal);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* CONTAINER CELULAR (Perfeito para WhatsApp e Mobile) */
+        .mobile-wrapper {
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            min-height: 700px;
+            background-color: var(--cream-bg);
+            position: relative;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* TELA DE INTRODUÇÃO (A tampinha interativa) */
+        .intro-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--bar-red-light) 20%, #400002 100%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .intro-screen.opened {
+            transform: translateY(-100%);
+        }
+
+        /* Tampinha Estilizada Premium */
+        .bottle-cap {
+            width: 190px;
+            height: 190px;
+            background: radial-gradient(circle, #c61a21 40%, #520104 95%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.6),
+                inset 0 -10px 0 rgba(0,0,0,0.4),
+                inset 0 10px 0 rgba(255,255,255,0.2);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 40px;
+            border: 2px solid var(--bar-gold-light);
+        }
+
+        .bottle-cap::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            border-radius: 50%;
+            border: 10px dashed #520104;
+            z-index: -1;
+            transform: rotate(15deg);
+        }
+
+        .bottle-cap:active {
+            transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .bottle-cap-content {
+            text-align: center;
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            line-height: 1.1;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-weight: 700;
+        }
+
+        .bottle-cap-content i {
+            font-size: 42px;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--bar-gold-light);
+            animation: bounce 1.5s infinite;
+        }
+
+        .intro-title {
+            font-family: 'Oswald', sans-serif;
+            color: #fff;
+            font-size: 42px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .intro-subtitle {
+            color: var(--bar-gold-light);
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+            padding-bottom: 40px;
+        }
+
+        .main-content.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Rótulo Superior Premium */
+        .brand-header {
+            background: radial-gradient(circle at top, var(--bar-red-light) 0%, var(--bar-red-dark) 100%);
+            padding: 40px 20px 60px 20px;
+            text-align: center;
+            border-bottom: 5px double var(--bar-gold-light);
+            position: relative;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Escudo Robusto da Imagem */
+        .brahma-shield {
+            border: 4px solid var(--bar-gold-light);
+            outline: 2px solid var(--bar-gold-dark);
+            outline-offset: -8px;
+            background: linear-gradient(135deg, var(--bar-red-dark) 0%, #3a0002 100%);
+            border-radius: 20px;
+            padding: 20px 35px;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            margin-bottom: 20px;
+        }
+
+        .shield-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            line-height: 0.9;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.6);
+        }
+
+        .shield-subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(to right, var(--bar-gold-dark), var(--bar-gold-light), var(--bar-gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: block;
+            margin-top: 8px;
+            border-top: 2px double var(--bar-gold-light);
+            padding-top: 5px;
+        }
+
+        .header-slogan {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* SEÇÃO DA CONTAGEM */
+        .countdown-highlight {
+            text-align: center;
+            margin: -25px 20px 25px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .countdown-highlight h2 {
+            background: linear-gradient(to right, var(--bar-red-dark), var(--bar-red-light));
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid var(--bar-gold-dark);
+            border-bottom: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .countdown-highlight h2 i {
+            color: var(--bar-gold-light);
+            font-size: 16px;
+        }
+
+        .countdown-container {
+            background: var(--card-bg);
+            margin: 0;
+            border-radius: 0 0 16px 16px;
+            padding: 18px 10px;
+            box-shadow: 0 10px 25px rgba(44,26,17,0.15);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            text-align: center;
+            border: 2px solid var(--bar-gold-light);
+            border-top: none;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(184, 145, 70, 0.3);
+        }
+
+        .countdown-item:last-child {
+            border-right: none;
+        }
+
+        .countdown-num {
+            font-family: 'Oswald', sans-serif;
+            font-size: 36px;
+            color: var(--bar-red-light);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #7a6e67;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* CARDS GERAIS (ESTILO DA IMAGEM) */
+        .card-container {
+            padding: 0 20px;
+        }
+
+        .info-card {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(44,26,17,0.08);
+            border: 1px solid rgba(184, 145, 70, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .card-icon {
+            background: linear-gradient(135deg, var(--bar-red-light) 0%, var(--bar-red-dark) 100%);
+            color: #fff;
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            border: 2px solid var(--bar-gold-light);
+            box-shadow: 0 4px 10px rgba(110,0,4,0.3);
+        }
+
+        .card-details h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 20px;
+            text-transform: uppercase;
+            color: var(--bar-red-dark);
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            font-weight: 700;
+        }
+
+        .card-details p {
+            font-size: 14px;
+            color: var(--charcoal);
+            line-height: 1.4;
+        }
+
+        /* SEÇÃO DO COPO INTERATIVO */
+        .beer-container-section {
+            background-color: #0c0c0c; /* Card escuro igual ao da imagem */
+            border-radius: 18px;
+            margin: 0 20px 20px 20px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border: 2px solid var(--bar-gold-dark);
+        }
+
+        .beer-container-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .copo-americano {
+            width: 110px;
+            height: 140px;
+            border: 4px solid rgba(255,255,255,0.25);
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            margin: 0 auto 15px auto;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+        }
+
+        .beer-liquid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%; 
+            background: linear-gradient(to top, #d47a00 0%, #ffc72c 100%);
+            transition: height 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        .beer-foam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 3px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .copo-facet {
+            position: absolute;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background-color: rgba(255,255,255,0.15);
+            z-index: 2;
+        }
+        .copo-facet:nth-child(1) { left: 18px; }
+        .copo-facet:nth-child(2) { left: 36px; }
+        .copo-facet:nth-child(3) { left: 54px; }
+        .copo-facet:nth-child(4) { left: 72px; }
+        .copo-facet:nth-child(5) { left: 90px; }
+
+        .btn-pour {
+            background: linear-gradient(to bottom, var(--bar-gold-light), var(--bar-gold-dark));
+            color: var(--charcoal);
+            border: 1px solid #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-pour:active {
+            transform: scale(0.95);
+        }
+
+        /* PLAYLIST CARD (PRETO IGUAL DA IMAGEM) */
+        .playlist-card {
+            background: #0c0c0c;
+            color: #fff;
+            border-radius: 18px;
+            margin: 0 20px 20px 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .music-btn {
+            background: linear-gradient(135deg, var(--bar-red-light) 0%, var(--bar-red-dark) 100%);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid var(--bar-gold-light);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .music-info h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--bar-gold-light);
+            font-weight: 700;
+        }
+
+        .music-info p {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .music-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 20px;
+            margin-left: auto;
+        }
+
+        .bar {
+            width: 3px;
+            height: 4px;
+            background-color: var(--bar-gold-light);
+            border-radius: 1px;
+        }
+
+        .bar.playing {
+            animation: bounce-bar 0.8s infinite alternate;
+        }
+        .bar:nth-child(2) { animation-delay: 0.15s; }
+        .bar:nth-child(3) { animation-delay: 0.3s; }
+        .bar:nth-child(4) { animation-delay: 0.45s; }
+
+        /* FORMULÁRIO DE CONFIRMAÇÃO */
+        .rsvp-form {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            margin: 0 20px 20px 20px;
+            padding: 25px 20px;
+            box-shadow: 0 8px 25px rgba(44,26,17,0.1);
+            border: 2px solid var(--bar-gold-light);
+            text-align: center;
+        }
+
+        .rsvp-form h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 22px;
+            text-transform: uppercase;
+            color: var(--bar-red-dark);
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .rsvp-form p {
+            font-size: 13px;
+            color: #6a5d55;
+            margin-bottom: 20px;
+        }
+
+        .rsvp-input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid rgba(184, 145, 70, 0.3);
+            background-color: #fff;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--charcoal);
+            margin-bottom: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .rsvp-input:focus {
+            border-color: var(--bar-red-light);
+        }
+
+        /* Botão WhatsApp Verde Premium Estilizado */
+        .btn-rsvp {
+            width: 100%;
+            background: linear-gradient(to bottom, #1fa34a, #115e2e);
+            color: #fff;
+            border: 1px solid #22c55e;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(17,94,46,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-rsvp:active {
+            transform: scale(0.98);
+        }
+
+        /* AVISO LEGAL */
+        .disclaimer {
+            text-align: center;
+            font-size: 11px;
+            color: #7a6e67;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 30px 0;
+            line-height: 1.5;
+            border-top: 1px dashed rgba(184, 145, 70, 0.3);
+            margin: 15px 20px 0;
+        }
+
+        .confetti {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1000;
+            animation: fall linear forwards;
+        }
+
+        /* ANIMATIONS */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes bounce-bar {
+            0% { height: 4px; }
+            100% { height: 20px; }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    
+/* FOTO DESTAQUE DALMO */
+.dalmo-highlight-section{
+    background:#0c0c0c;
+    margin:0 20px 20px;
+    padding:30px 20px;
+    border-radius:18px;
+    text-align:center;
+    border:2px solid var(--bar-gold-dark);
+    position:relative;
+    overflow:hidden;
+}
+.photo-frame{
+    width:260px;height:260px;margin:0 auto 20px;border-radius:50%;
+    overflow:hidden;border:5px solid var(--bar-gold-light);
+    box-shadow:0 0 0 10px rgba(229,192,123,.15),0 10px 30px rgba(0,0,0,.5);
+    position:relative;
+}
+.photo-frame img{
+    width:100%;height:100%;object-fit:cover;
+    animation:zoomDalmo 12s ease-in-out infinite alternate;
+}
+.photo-frame::after{
+    content:'';position:absolute;top:-50%;left:-150%;width:80%;height:200%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+    transform:rotate(20deg);animation:shine 5s infinite;
+}
+.dalmo-badge{
+    color:var(--bar-gold-light);font-family:'Oswald',sans-serif;
+    letter-spacing:3px;margin-bottom:20px;font-size:16px;
+}
+.dalmo-phrases{min-height:70px;position:relative;}
+.phrase{
+    position:absolute;left:0;width:100%;opacity:0;color:#fff;
+    font-family:'Oswald',sans-serif;font-size:24px;text-transform:uppercase;
+    transition:.8s;
+}
+.phrase.active{opacity:1;}
+@keyframes zoomDalmo{from{transform:scale(1);}to{transform:scale(1.12);}}
+@keyframes shine{from{left:-150%;}to{left:250%;}}
+
+
+.location-card{
+    cursor:pointer;
+    transition:all .3s ease;
+}
+.location-card:hover{
+    transform:translateY(-3px);
+}
+.location-card:active{
+    transform:scale(.98);
+}
+.location-card .card-icon{
+    animation:pulseMap 2s infinite;
+}
+.location-arrow{
+    margin-left:auto;
+    color:#ab070d;
+    font-size:18px;
+}
+.location-hint{
+    font-size:13px;
+    opacity:.8;
+}
+@keyframes pulseMap{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+
+
+.map-preview-card{
+    margin:0 20px 20px;
+    background:#fbf9f3;
+    border-radius:18px;
+    overflow:hidden;
+    border:2px solid var(--bar-gold-light);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.3s;
+}
+.map-preview-card:hover{
+    transform:translateY(-3px);
+}
+.map-fake-preview{
+    height:140px;
+    background:
+      linear-gradient(45deg,#e8e2d1 25%,transparent 25%),
+      linear-gradient(-45deg,#e8e2d1 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#e8e2d1 75%),
+      linear-gradient(-45deg,transparent 75%,#e8e2d1 75%);
+    background-size:30px 30px;
+    background-color:#f4efdf;
+    position:relative;
+    overflow:hidden;
+}
+.map-road{
+    position:absolute;
+    background:#ffffff;
+    opacity:.9;
+}
+.road1{width:130%;height:14px;top:45%;left:-10%;transform:rotate(12deg);}
+.road2{width:14px;height:120%;left:60%;top:-10%;}
+.road3{width:90%;height:12px;bottom:18%;left:10%;transform:rotate(-8deg);}
+
+.map-pin{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-size:42px;
+    animation:pulsePin 1.8s infinite;
+}
+
+.map-content{
+    padding:18px;
+    text-align:center;
+}
+.map-content h3{
+    font-family:'Oswald',sans-serif;
+    color:var(--bar-red-dark);
+    font-size:24px;
+    margin-bottom:6px;
+}
+.map-content p{
+    font-weight:600;
+    margin-bottom:8px;
+}
+.map-content span{
+    color:var(--bar-red-light);
+    font-size:13px;
+    font-weight:700;
+}
+@keyframes pulsePin{
+    0%,100%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.15);}
+}
+
+</style>
+</head>
+<body>
+
+    <div class="mobile-wrapper">
+        
+        <div class="intro-screen" id="introScreen">
+            <h1 class="intro-title">Dalmo 50 Anos</h1>
+            <p class="intro-subtitle">Safra 1976</p>
+            
+            <div class="bottle-cap" id="bottleCap" onclick="openInvitation()">
+                <div class="bottle-cap-content">
+                    <i class="fa-solid fa-beer-mug-empty"></i>
+                    LIBERAR<br>COMEMORAÇÃO
+                </div>
+            </div>
+            
+            <p style="color: #fff; font-size: 13px; opacity: 0.8; max-width: 260px; text-transform: uppercase; letter-spacing: 1px;">toque na tampinha para abrir o convite!</p>
+        </div>
+
+        <div class="main-content" id="mainContent">
+            
+            <div class="brand-header">
+                <div class="brahma-shield">
+                    <div class="shield-title">DALMO</div>
+                    <div class="shield-subtitle">50 ANOS</div>
+                    <div style="color: var(--bar-gold-light); font-family: 'Oswald'; font-size: 14px; letter-spacing: 3px; margin-top: 5px;">★ SAFRA 1976 ★</div>
+                </div>
+                <p class="header-slogan">meio século colecionando amizades</p>
+            </div>
+
+            <div class="countdown-highlight">
+                <h2><i class="fa-solid fa-beer-mug-empty"></i> FALTAM APENAS <i class="fa-solid fa-beer-mug-empty"></i></h2>
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <span class="countdown-num" id="days">00</span>
+                        <span class="countdown-label">Dias</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-num" id="hours">00</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-num" id="mins">00</span>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-num" id="secs">00</span>
+                        <span class="countdown-label">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+            
+<div class="dalmo-highlight-section">
+    <div class="photo-frame">
+        <img src="https://raw.githubusercontent.com/jacomns-sketch/Audio-convite/refs/heads/main/IMG-20260607-WA0006.jpg" alt="Dalmo">
+    </div>
+
+    <div class="dalmo-badge">★ SAFRA 1976 ★</div>
+
+    <div class="dalmo-phrases">
+        <span class="phrase active">Uma edição especial.</span>
+        <span class="phrase">50 anos de histórias.</span>
+        <span class="phrase">Amizades para toda vida.</span>
+        <span class="phrase">E essa comemoração não seria completa sem você.</span>
+    </div>
+</div>
+
+<div class="card-container">
+                
+                <div class="info-card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <div class="card-details">
+                        <h3>Dia da celebração</h3>
+                        <p><strong>Sábado, 5 de Setembro</strong></p>
+                        <p style="color: #6e0004; font-weight: 600;">A partir das 19:00h</p>
+                    </div>
+                </div>
+
+                
+
+<div class="map-preview-card"
+     onclick="window.open('https://maps.app.goo.gl/Yjy3tPrQqtaV8c566?g_st=ac', '_blank')">
+
+    <div class="map-fake-preview">
+        <div class="map-pin">📍</div>
+        <div class="map-road road1"></div>
+        <div class="map-road road2"></div>
+        <div class="map-road road3"></div>
+    </div>
+
+    <div class="map-content">
+        <h3>Sítio Cristais dos Ypês</h3>
+        <p>Local da Celebração</p>
+        <span>🚗 Toque para abrir a rota no Google Maps</span>
+    </div>
+
+</div>
+
+
+
+            </div>
+
+            <div class="playlist-card">
+                <div class="music-btn" onclick="toggleMusicVisualizer()">
+                    <i class="fa-solid fa-play" id="musicPlayIcon"></i>
+                </div>
+                
+                <audio id="bgMusic" src="https://raw.githubusercontent.com/jacomns-sketch/Audio-convite/21579db3c3d6e51352bf99047e6430f4c36d6618/N%C3%83O%20GOSTO%20EU%20AMO%20convite.mp3" loop></audio>
+
+                <div class="music-info">
+                    <h4>não vai faltar música boa</h4>
+                    <p>MODÃO, SERTANEJO, PAGODE E MUITO +</p>
+                </div>
+                <div class="music-bars" id="musicVisualizer">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+
+            <div class="rsvp-form">
+                <h3>E aí, vamos brindar juntos?</h3>
+                <p>Confirme sua presença para separarmos sua mesa!</p>
+                
+                <input type="text" class="rsvp-input" id="guestName" placeholder="Digite seu nome completo">
+                
+                <button class="btn-rsvp" onclick="submitRSVP()">
+                    <i class="fa-brands fa-whatsapp"></i> Confirmar Presença
+                </button>
+            </div>
+
+            <p class="disclaimer">
+                Evite ressaca, mas brinde bastante, afinal de contas, são 50 anos.<br>
+                <span style="color: var(--bar-red-light)">★ Obs. Teremos Chopp liberado no sábado. Traga sua bebida para continuarmos a resenha no domingo. ★</span>
+            </p>
+
+        </div>
+
+    </div>
+
+    <audio id="openCapSound" src="https://raw.githubusercontent.com/jacomns-sketch/Audio-convite/c0bd49709ec4ae2fcb66955a321d1d031beb5680/freesound_community-beer-pouring-into-glass-170427_1448-70977.mp3"></audio>
+
+    <script>
+        // INTERATIVIDADES
+        
+function openInvitation() {
+
+    const openSound = document.getElementById('openCapSound');
+    const music = document.getElementById('bgMusic');
+
+    openSound.play().catch(error =>
+        console.log("Erro ao reproduzir som:", error)
+    );
+
+    document.getElementById('introScreen').classList.add('opened');
+
+    const mainContent = document.getElementById('mainContent');
+    mainContent.classList.add('visible');
+
+    setTimeout(() => {
+
+        if (music) {
+            music.play().then(() => {
+
+                isMusicPlaying = true;
+
+                const icon = document.getElementById('musicPlayIcon');
+                if(icon) icon.className = 'fa-solid fa-pause';
+
+                document.querySelectorAll('.bar').forEach(bar =>
+                    bar.classList.add('playing')
+                );
+
+            }).catch(error =>
+                console.log("Autoplay bloqueado:", error)
+            );
+        }
+
+    }, 2500);
+}
+
+        // Som nativo curto para o clique do botão secundário (Mais uma rodada)
+        function playPourSound() {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(350, audioCtx.currentTime + 0.5);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.5);
+        }
+
+        // COPO AMERICANO INTERATIVO
+        let currentBeerHeight = 75;
+        function pourMore() {
+            playPourSound();
+            const liquid = document.getElementById('beerLiquid');
+            if (currentBeerHeight >= 95) {
+                currentBeerHeight = 0;
+                liquid.style.height = '0%';
+                setTimeout(() => {
+                    currentBeerHeight = 65;
+                    liquid.style.height = '65%';
+                }, 400);
+            } else {
+                currentBeerHeight += 15;
+                if (currentBeerHeight > 95) currentBeerHeight = 95;
+                liquid.style.height = currentBeerHeight + '%';
+            }
+        }
+
+        // PLAYLIST COM ÁUDIO REAL
+        let isMusicPlaying = false;
+        function toggleMusicVisualizer() {
+            const bars = document.querySelectorAll('.bar');
+            const icon = document.getElementById('musicPlayIcon');
+            const music = document.getElementById('bgMusic');
+            
+            isMusicPlaying = !isMusicPlaying;
+
+            if (isMusicPlaying) {
+                icon.className = 'fa-solid fa-pause';
+                bars.forEach(bar => bar.classList.add('playing'));
+                music.play().catch(error => {
+                    console.log("O navegador segurou o autoplay. Aguardando interação do usuário.", error);
+                });
+            } else {
+                icon.className = 'fa-solid fa-play';
+                bars.forEach(bar => bar.classList.remove('playing'));
+                music.pause();
+            }
+        }
+
+        // RSVP VIA WHATSAPP (Direto para o Dalmo)
+        function submitRSVP() {
+            const guestName = document.getElementById('guestName').value.trim();
+            if (!guestName) {
+                alert('Por favor, digite o seu nome antes de confirmar!');
+                return;
+            }
+            triggerBeerRain();
+            
+            // INSIRA O TELEFONE DO DALMO AQUI ABAIXO (Mantenha o 55 e mude o DDD/Número)
+            // Exemplo para DDD 31: '5531999999999'
+            const numeroDalmo = '5531996899177'; 
+            
+            // PERSONALIZE O TEXTO DA MENSAGEM SE QUISER
+            const message = `Fala, Dalmo! Aqui é  ${guestName}. Minha presença está confirmada nos seus 50 anos! Pode reservar minha mesa! 🍻`;
+            
+            const encodedText = encodeURIComponent(message);
+            
+            window.location.href =
+                `https://wa.me/${numeroDalmo}?text=${encodedText}`;
+        }
+
+        function triggerBeerRain() {
+            const wrapper = document.querySelector('.mobile-wrapper');
+            const items = ['🍻', '🍺', '🥳', '💥', '⭐'];
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.innerText = items[Math.floor(Math.random() * items.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.fontSize = Math.random() * 15 + 15 + 'px';
+                confetti.style.animationDuration = Math.random() * 1.5 + 1 + 's';
+                confetti.style.top = '-20px';
+                wrapper.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 2500);
+            }
+        }
+
+        // CONTAGEM REGRESSIVA (5 de Setembro de 2026 às 19:00)
+        const targetDate = new Date('September 5, 2026 19:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.querySelector('.countdown-container').innerHTML = '<p style="grid-column: span 4; font-weight: bold; color: var(--bar-red-light); font-size: 14px; text-transform: uppercase;">CHEGOU O DIA DE CELEBRAR O DALMO! 🍻</p>';
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('mins').innerText = String(mins).padStart(2, '0');
+            document.getElementById('secs').innerText = String(secs).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    
+const phrases = document.querySelectorAll('.phrase');
+let currentPhrase = 0;
+setInterval(() => {
+ if(!phrases.length) return;
+ phrases[currentPhrase].classList.remove('active');
+ currentPhrase = (currentPhrase + 1) % phrases.length;
+ phrases[currentPhrase].classList.add('active');
+},3000);
+
+</script>
+</body>
+</html>
